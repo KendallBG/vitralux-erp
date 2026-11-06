@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>VITRALUX ERP | Órdenes de trabajo</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+    <main class="container py-4">
+        <a th:href="@{/}">Volver al panel</a>
+
+        <div class="d-flex flex-wrap gap-2 justify-content-between align-items-center my-3">
+            <h1 class="mb-0">Órdenes de trabajo</h1>
+            <a th:href="@{/ordenes/nueva}" class="btn btn-primary">Nueva orden</a>
+        </div>
+
+        <div th:if="${mensaje}" th:text="${mensaje}" class="alert alert-success" role="status"></div>
+
+        <div class="card shadow-sm table-responsive">
+            <table class="table table-striped align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col">Orden</th>
+                        <th scope="col">Venta</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col">Estado</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="orden : ${ordenes}">
+                        <td th:text="|OT-${orden.id}|"></td>
+                        <td>
+                            <a th:href="@{/ventas/{id}(id=${orden.venta.id})}"
+                               th:text="|V-${orden.venta.id}|"></a>
+                        </td>
+                        <td th:text="${orden.venta.cliente.nombre}"></td>
+                        <td th:text="${orden.fecha}"></td>
+                        <td th:text="${orden.estado}"></td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(ordenes)}">
+                        <td colspan="5" class="text-center text-secondary py-4">
+                            Todavía no hay órdenes registradas.
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+</body>
+</html>

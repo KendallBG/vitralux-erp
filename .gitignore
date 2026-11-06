@@ -1,0 +1,6 @@
+/target/
+/vitralux-erp/
+*.log
+.env
+.env.*
+/nbproject/private/
